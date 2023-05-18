@@ -9,11 +9,10 @@ import ru.tinkoff.myupgradeapplication.week4.PageObject.screens.FirstPage
 import ru.tinkoff.myupgradeapplication.week4.PageObject.screens.LoginPage
 import ru.tinkoff.myupgradeapplication.R
 
-class UserFlowTest {
+class UiAutomatorPageObjectTest {
 
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
-
 
     @Test
     fun enterLoginPasswordTest(){
@@ -29,7 +28,6 @@ class UserFlowTest {
             checkTextOnSnackBar("You enter login = $loginValue password = $passwordValue")
         }
     }
-
 
     @Test
     fun checkSwitchingTextTest(){
