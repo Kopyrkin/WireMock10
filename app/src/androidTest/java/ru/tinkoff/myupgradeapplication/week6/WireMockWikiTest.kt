@@ -45,7 +45,6 @@ class WireMockWikiTest {
         }
         Thread.sleep(15000)
     }
-
     @Test
     fun bigChain() {
         stubFor(
