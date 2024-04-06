@@ -16,20 +16,21 @@ class StartPage {
 
     val personView = PersonView()
 
-    fun clickFirstButton(){
+    fun clickFirstButton() {
         onView(firstButtonMatcher)
             .perform(click())
     }
 
-    fun clickShowPersonButton(){
+    fun clickShowPersonButton() {
         onView(buttonShowPerson)
             .perform(click())
     }
 
-    fun clickFab(){
+    fun clickFab() {
         onView(fabMatcher)
             .perform(click())
             .check(matches(isDisplayed()))
     }
 
 }
+

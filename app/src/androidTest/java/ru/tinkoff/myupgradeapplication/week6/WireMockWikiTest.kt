@@ -33,13 +33,13 @@ class WireMockWikiTest {
                 .withQueryParam("list", WireMock.equalTo("search"))
                 .withQueryParam("srsearch", WireMock.containing("Oleg"))
                 .willReturn(
-                    ok( fileToString("mock/wiki.json"))
+                    ok(fileToString("mock/wiki.json"))
                 )
         )
-        with (StartPage ()) {
+        with(StartPage()) {
             clickFirstButton()
         }
-        with (WikiPage() ){
+        with(WikiPage()) {
             typeTextToWikiFiled("Oleg")
             clickWikiSearchButton()
         }
@@ -47,7 +47,7 @@ class WireMockWikiTest {
     }
 
     @Test
-    fun bigChain(){
+    fun bigChain() {
         stubFor(
             get(urlEqualTo("/api/"))
                 .inScenario("Films")
@@ -68,7 +68,7 @@ class WireMockWikiTest {
                 .whenScenarioStateIs("Step 1 - Tarantino")
                 .willSetStateTo("Step 2 - Oleg")
                 .willReturn(
-                    ok( fileToString("mock/wiki.json"))
+                    ok(fileToString("mock/wiki.json"))
                 )
         )
 
@@ -82,20 +82,20 @@ class WireMockWikiTest {
                 )
         )
 
-        with(StartPage()){
+        with(StartPage()) {
             clickShowPersonButton()
             clickFirstButton()
         }
-        with (WikiPage() ){
+        with(WikiPage()) {
             typeTextToWikiFiled("Oleg")
             clickWikiSearchButton()
             Thread.sleep(4000)
             clickPreviousButton()
         }
-        with(StartPage()){
+        with(StartPage()) {
             clickShowPersonButton()
             Thread.sleep(4000)
         }
     }
-
 }
+

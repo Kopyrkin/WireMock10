@@ -6,9 +6,9 @@ import org.junit.rules.TestRule
 import org.junit.runner.Description
 import org.junit.runners.model.Statement
 
-class LocalhostPreferenceRule: TestRule {
+class LocalhostPreferenceRule : TestRule {
     override fun apply(base: Statement, description: Description): Statement {
-        return object :Statement(){
+        return object : Statement() {
             override fun evaluate() {
                 setStringPrefParam(spFileName, spParamUrlName, spParamAddress)
                 setStringPrefParam(spFileName, spWikiUrlName, spParamAddress)
@@ -18,6 +18,7 @@ class LocalhostPreferenceRule: TestRule {
 
         }
     }
+
     companion object {
         private val spFileName = "demo_url"
         private val spParamUrlName = "url"
@@ -27,15 +28,22 @@ class LocalhostPreferenceRule: TestRule {
 }
 
 private fun setStringPrefParam(prefName: String, param: String, value: String) {
-    val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+    val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(
+        prefName,
+        Context.MODE_PRIVATE
+    )
     val editor = pref.edit()
     editor.putString(param, value)
     editor.commit()
 }
 
 private fun clearPreferences(prefName: String) {
-    val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+    val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(
+        prefName,
+        Context.MODE_PRIVATE
+    )
     val editor = pref.edit()
     editor.clear()
     editor.commit()
 }
+

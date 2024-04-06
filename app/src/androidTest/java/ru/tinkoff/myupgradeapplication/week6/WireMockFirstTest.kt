@@ -37,7 +37,7 @@ class WireMockFirstTest {
                 )
         )
 
-        with (StartPage()) {
+        with(StartPage()) {
             clickShowPersonButton()
             Thread.sleep(5000)
             with(personView) {
@@ -67,7 +67,7 @@ class WireMockFirstTest {
                 )
         )
 
-        with (StartPage ()) {
+        with(StartPage()) {
             clickShowPersonButton()
             Thread.sleep(5000)
             clickShowPersonButton()
@@ -76,3 +76,4 @@ class WireMockFirstTest {
         }
     }
 }
+

@@ -45,7 +45,7 @@ class WireMockScenarioTest {
                 )
         )
 
-        with (StartPage ()) {
+        with(StartPage()) {
             clickShowPersonButton()
             Thread.sleep(2000)
             clickShowPersonButton()
@@ -53,3 +53,4 @@ class WireMockScenarioTest {
         }
     }
 }
+

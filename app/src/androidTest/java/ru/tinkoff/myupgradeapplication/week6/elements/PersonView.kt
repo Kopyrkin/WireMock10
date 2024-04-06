@@ -21,11 +21,11 @@ class PersonView {
         onView(imageMatcher).check(matches(isCompletelyDisplayed()))
     }
 
-    fun checkEmail(email: String){
+    fun checkEmail(email: String) {
         onView(emailMatcher).check(matches(withText(email)))
     }
 
-    fun checkEmailDisplayed(){
+    fun checkEmailDisplayed() {
         onView(emailMatcher).check(matches(isCompletelyDisplayed()))
     }
 
@@ -33,3 +33,4 @@ class PersonView {
     private val fioMatcher = withId(R.id.person_name)
     private val imageMatcher = withId(R.id.person_avatar)
 }
+

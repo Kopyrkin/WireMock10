@@ -8,16 +8,16 @@ import ru.tinkoff.myupgradeapplication.R
 
 class WikiPage {
 
-    val buttonPreviousMatcher  = withId(R.id.button_second)
-    val buttonWikiSearch  = withId(R.id.button_wiki_search)
+    val buttonPreviousMatcher = withId(R.id.button_second)
+    val buttonWikiSearch = withId(R.id.button_wiki_search)
     val editTextWikiFieldMatcher = withId(R.id.et_wiki_request)
 
-    fun clickPreviousButton(){
+    fun clickPreviousButton() {
         onView(buttonPreviousMatcher)
             .perform(click())
     }
 
-    fun clickWikiSearchButton(){
+    fun clickWikiSearchButton() {
         onView(buttonWikiSearch)
             .perform(click())
     }
@@ -25,9 +25,8 @@ class WikiPage {
     fun typeTextToWikiFiled(text: String) {
         onView(editTextWikiFieldMatcher)
             .perform(ViewActions.typeText(text))
-            //.perform(ViewActions.replaceText(text))
-            // Можно использовать replace в случае если набор тек ста с помощью typeText не срабатывает на некоторых view
+        //.perform(ViewActions.replaceText(text))
+        // Можно использовать replace в случае если набор тек ста с помощью typeText не срабатывает на некоторых view
     }
-
-
 }
+

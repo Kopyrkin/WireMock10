@@ -53,13 +53,13 @@ class WireMockTest {
         )
 
     }
+
     @Test
     fun fragmentNavigationTest() {
         setStringPrefParam("demo_url", "url", "http://localhost:5000/w/")
 
         // just examples:
-        val wikiMatcher: MappingBuilder
-        = get(WireMock.urlPathMatching("/w/api.php"))
+        val wikiMatcher: MappingBuilder = get(WireMock.urlPathMatching("/w/api.php"))
             .withQueryParam("action", equalTo("query"))
             .withQueryParam("format", equalTo("json"))
             .withQueryParam("list", equalTo("search"))
@@ -70,7 +70,8 @@ class WireMockTest {
                 .willReturn(
                     aResponse()
                         .withStatus(200)
-                        .withBody("body values"))
+                        .withBody("body values")
+                )
         )
 
         stubFor(
@@ -82,12 +83,14 @@ class WireMockTest {
                 .withRequestBody(equalToJson("{name=billy;}"))
                 .willReturn(
                     aResponse()
-                        .withStatus(200))
+                        .withStatus(200)
+                )
         )
 
         verify(
             anyRequestedFor(
-                urlEqualTo("/auth/step?user=billy"))
+                urlEqualTo("/auth/step?user=billy")
+            )
                 .withHeader("Accept", containing("xml"))
                 .withCookie("session", matching(".*12345.*"))
                 .withQueryParam("term", equalTo("WireMock"))
@@ -97,39 +100,47 @@ class WireMockTest {
 
         stubFor(
             post(
-                urlEqualTo("/client/checkCardValue"))
+                urlEqualTo("/client/checkCardValue")
+            )
                 .inScenario("Check debit card state")
                 .whenScenarioStateIs(STARTED)
                 .willSetStateTo("Step 1")
-                .willReturn(okJson(" { cardValue = 400 }")))
+                .willReturn(okJson(" { cardValue = 400 }"))
+        )
 
         stubFor(
             post(
-                urlEqualTo("/client/pay?item=tax"))
+                urlEqualTo("/client/pay?item=tax")
+            )
                 .inScenario("Check debit card state")
                 .whenScenarioStateIs("Step 1")
                 .willSetStateTo("Step 2")
-                .willReturn(ok()))
+                .willReturn(ok())
+        )
 
         stubFor(
             post(
-                urlEqualTo("/client/checkCardValue"))
+                urlEqualTo("/client/checkCardValue")
+            )
                 .inScenario("Check debit card state")
                 .whenScenarioStateIs("Step 1")
                 .willSetStateTo(STARTED)
-                .willReturn(okJson(" { cardValue = 200 }")))
+                .willReturn(okJson(" { cardValue = 200 }"))
+        )
 
         stubFor(
             wikiMatcher.willReturn(
                 aResponse()
-                .withStatus(200)))
+                    .withStatus(200)
+            )
+        )
         stubFor(
             any(urlEqualTo("/auth/step"))
                 .withQueryParam("search_term", equalTo("WireMock"))
                 .withBasicAuth("jeff@example.com", "jeffteenjefftyjeff")
                 .withRequestBody(equalToXml("<search-results />"))
                 .withRequestBody(matchingXPath("//search-results"))
-                .withRequestBody(equalToJson("{ name = billy; }", true, true ) )
+                .withRequestBody(equalToJson("{ name = billy; }", true, true))
                 .willReturn(
                     unauthorized()
                 )
@@ -137,13 +148,13 @@ class WireMockTest {
     }
 
     private fun setStringPrefParam(prefName: String, param: String, value: String) {
-        val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+        val pref = InstrumentationRegistry.getInstrumentation().targetContext.getSharedPreferences(
+            prefName,
+            Context.MODE_PRIVATE
+        )
         val editor = pref.edit()
         editor.putString(param, value)
         editor.commit()
     }
 }
-
-
-
 
