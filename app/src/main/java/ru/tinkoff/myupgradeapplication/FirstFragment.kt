@@ -55,8 +55,9 @@ class FirstFragment : Fragment() {
             dialog.show()
         }
 
-
-
+        binding.composeButton.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_ComposeGreetingFragment)
+        }
     }
 
     override fun onDestroyView() {

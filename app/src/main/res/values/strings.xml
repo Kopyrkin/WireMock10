@@ -4,13 +4,21 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
+    <string name="compose_fragment_label">Compose Greeting Screen</string>
     <string name="next">Next</string>
     <string name="change">Change</string>
+    <string name="compose">To Compose</string>
     <string name="previous">Previous</string>
 
     <string name="login_hint">Login</string>
     <string name="password_hint">Password</string>
     <string name="submitButton">Submit</string>
+    <string name="ok_button">OK</string>
+    <string name="error_digits">Name can only contain letters!</string>
+    <string name="error_size">Name must contain at least 2 letters!</string>
+    <string name="name_input_label">Enter your name</string>
+    <string name="greeting_message">Hello, %s!</string>
+
 
     <string name="first_text">Exorcizo te, immundissime spiritus, omnis incursio adversarii, omne phantasma, omnis legio, in nomine Domini nostri Jesu Christi eradicare, et effugare ab hoc plasmate Dei. Ipse tibi imperat, qui te de supernis caelorum in inferiora terrae demergi praecepit. Ipse tibi imperat, qui mari, ventis, et tempestatibus impersvit. Audi ergo, et time, satana, inimice fidei, hostis generis humani, mortis adductor, vitae raptor, justitiae declinator, malorum radix, fomes vitiorum, seductor hominum, proditor gentium, incitator invidiae, origo avaritiae, causa discordiae, excitator dolorum: quid stas, et resistis, cum scias. Christum Dominum vias tuas perdere? Illum metue, qui in Isaac immolatus est, in joseph venumdatus, in sgno occisus, in homine cruci- fixus, deinde inferni triumphator fuit. Sequentes cruces fiant in fronte obsessi. Recede ergo in nomine Patris et Filii, et Spiritus Sancti: da locum Spiritui Sancto, per hoc signum sanctae Cruci Jesu Christi Domini nostri: Qui cum Patre et eodem Spiritu Sancto vivit et regnat Deus, Per omnia saecula saeculorum. Et cum spiritu tuo. Amen.</string>
 
@@ -31,4 +39,7 @@
 
     </string>
     <string name="show_dialog">Show Dialog</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
