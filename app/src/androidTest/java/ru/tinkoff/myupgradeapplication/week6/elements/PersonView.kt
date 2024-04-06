@@ -12,19 +12,15 @@ class PersonView {
     fun checkFio(fio: String) {
         onView(fioMatcher).check(matches(withText(fio)))
     }
-
     fun checkFioContains(fio: String) {
         onView(fioMatcher).check(matches(withText(containsString(fio))))
     }
-
     fun checkImageDisplayed() {
         onView(imageMatcher).check(matches(isCompletelyDisplayed()))
     }
-
     fun checkEmail(email: String) {
         onView(emailMatcher).check(matches(withText(email)))
     }
-
     fun checkEmailDisplayed() {
         onView(emailMatcher).check(matches(isCompletelyDisplayed()))
     }
