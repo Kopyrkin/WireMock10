@@ -22,7 +22,6 @@ import ru.tinkoff.myupgradeapplication.week6.rules.LocalhostPreferenceRule
 import ru.tinkoff.myupgradeapplication.week6.screens.StartPage
 import ru.tinkoff.myupgradeapplication.week6.screens.WikiPage
 import ru.tinkoff.myupgradeapplication.week6.utils.fileToString
-import kotlin.concurrent.thread
 
 class WireMockWikiTest {
     @get: Rule
