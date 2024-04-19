@@ -1,15 +1,19 @@
 package ru.tinkoff.myupgradeapplication.week6
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import com.github.tomakehurst.wiremock.client.ResponseDefinitionBuilder
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock.aResponse
 import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
+import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.github.tomakehurst.wiremock.junit.WireMockRule
 import com.github.tomakehurst.wiremock.stubbing.Scenario
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -21,19 +25,18 @@ import ru.tinkoff.myupgradeapplication.week6.utils.fileToString
 
 class WireMockWikiTest {
     @get: Rule
-    val ruleChain: RuleChain = RuleChain.outerRule(LocalhostPreferenceRule())
-        .around(WireMockRule(5000))
-        .around(ActivityScenarioRule(MainActivity::class.java))
+    val ruleChain: RuleChain =
+        RuleChain.outerRule(LocalhostPreferenceRule()).around(WireMockRule(5000))
+            .around(ActivityScenarioRule(MainActivity::class.java))
 
     @Test
     fun firstMockTest() {
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
+            get(urlPathMatching("/api.php")).withQueryParam(
+                "action", WireMock.equalTo("query")
+            ).withQueryParam("format", WireMock.equalTo("json"))
                 .withQueryParam("list", WireMock.equalTo("search"))
-                .withQueryParam("srsearch", WireMock.containing("Oleg"))
-                .willReturn(
+                .withQueryParam("srsearch", WireMock.containing("Oleg")).willReturn(
                     ok(fileToString("mock/wiki.json"))
                 )
         )
@@ -49,36 +52,28 @@ class WireMockWikiTest {
     @Test
     fun bigChain() {
         stubFor(
-            get(urlEqualTo("/api/"))
-                .inScenario("Films")
-                .whenScenarioStateIs(Scenario.STARTED)
-                .willSetStateTo("Step 1 - Tarantino")
-                .willReturn(
-                    WireMock.ok(fileToString("mock/mock-first.json"))
+            get(urlEqualTo("/api/")).inScenario("Films").whenScenarioStateIs(Scenario.STARTED)
+                .willSetStateTo("Step 1 - Tarantino").willReturn(
+                    ok(fileToString("mock/mock-first.json"))
                 )
         )
 
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
+            get(urlPathMatching("/api.php")).withQueryParam(
+                "action", WireMock.equalTo("query")
+            ).withQueryParam("format", WireMock.equalTo("json"))
                 .withQueryParam("list", WireMock.equalTo("search"))
-                .withQueryParam("srsearch", WireMock.containing("Oleg"))
-                .inScenario("Films")
-                .whenScenarioStateIs("Step 1 - Tarantino")
-                .willSetStateTo("Step 2 - Oleg")
+                .withQueryParam("srsearch", WireMock.containing("Oleg")).inScenario("Films")
+                .whenScenarioStateIs("Step 1 - Tarantino").willSetStateTo("Step 2 - Oleg")
                 .willReturn(
                     ok(fileToString("mock/wiki.json"))
                 )
         )
 
         stubFor(
-            get(urlEqualTo("/api/"))
-                .inScenario("Films")
-                .whenScenarioStateIs("Step 2 - Oleg")
-                .willSetStateTo("Step finish")
-                .willReturn(
-                    WireMock.ok(fileToString("mock/mock-second.json"))
+            get(urlEqualTo("/api/")).inScenario("Films").whenScenarioStateIs("Step 2 - Oleg")
+                .willSetStateTo("Step finish").willReturn(
+                    ok(fileToString("mock/mock-second.json"))
                 )
         )
 
@@ -101,15 +96,13 @@ class WireMockWikiTest {
     //Case 1
     @Test
     fun checkWikiContentDisplay() {
+        val textRequest = "Гуляй шальная императрица"
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
-                .withQueryParam("list", WireMock.equalTo("search"))
-                .withQueryParam("srsearch", WireMock.containing("Гуляй шальная императрица"))
-                .willReturn(
-                    ok(fileToString("mock/wiki_imperatrica.json"))
-                )
+            get(urlPathMatching("/api.php")).withQueryParam(
+                "srsearch", WireMock.containing(textRequest)
+            ).willReturn(
+                ok(fileToString("mock/wiki_imperatrica.json"))
+            )
         )
         with(StartPage()) {
             clickFirstButton()
@@ -117,6 +110,11 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(textToWikiSearch)
             clickWikiSearchButton()
+            verify(
+                getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
+                    "srsearch", WireMock.containing(textRequest)
+                )
+            )
         }
     }
 
@@ -125,34 +123,20 @@ class WireMockWikiTest {
     fun checkWikiContentSwitch() {
         val text = "Серега опытный мужик, он мне дает советов много"
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .inScenario("Serega")
-                .whenScenarioStateIs(Scenario.STARTED)
-                .willSetStateTo("Step 1 - Sapogi")
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
-                .withQueryParam("list", WireMock.equalTo("search"))
+            get(urlPathMatching("/api.php")).inScenario("Serega")
+                .whenScenarioStateIs(Scenario.STARTED).willSetStateTo("Step 1 - Sapogi")
                 .withQueryParam(
-                    "srsearch",
-                    WireMock.containing(text)
-                )
-                .willReturn(
+                    "srsearch", WireMock.containing(text)
+                ).willReturn(
                     ok(fileToString("mock/wiki_serega1.json"))
                 )
         )
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .inScenario("Serega")
-                .whenScenarioStateIs("Step 1 - Sapogi")
-                .willSetStateTo("Step finish")
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
-                .withQueryParam("list", WireMock.equalTo("search"))
+            get(urlPathMatching("/api.php")).inScenario("Serega")
+                .whenScenarioStateIs("Step 1 - Sapogi").willSetStateTo("Step finish")
                 .withQueryParam(
-                    "srsearch",
-                    WireMock.containing(text)
-                )
-                .willReturn(
+                    "srsearch", WireMock.containing(text)
+                ).willReturn(
                     ok(fileToString("mock/wiki_serega2.json"))
                 )
         )
@@ -162,20 +146,30 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(textToWikiSearchCase2Serega)
             clickWikiSearchButton()
+            verify(
+                getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
+                    "srsearch", WireMock.containing(textToWikiSearchCase2Serega)
+                )
+            )
+
             replaceTextToWikiFiled(textToWikiSearchCase2Serega)
             clickWikiSearchButton()
+            verify(
+                getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
+                    "srsearch", WireMock.containing(textToWikiSearchCase2Serega)
+                )
+            )
         }
     }
 
     // Case 3
     @Test
     fun checkRequestOnFirstPage() {
+        val nameOfBank = "Tinkoff Bank"
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
-                .withQueryParam("list", WireMock.equalTo("search"))
-                .withQueryParam("srsearch", WireMock.equalTo("Tinkoff Bank"))
+            get(urlPathMatching("/api.php")).withQueryParam(
+                "srsearch", WireMock.equalTo(nameOfBank)
+            )
         )
         with(StartPage()) {
             clickFirstButton()
@@ -183,8 +177,12 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(textToWikiSearchCase4TinkoffBank)
             clickWikiSearchButton()
+            verify(
+                getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
+                    "srsearch", WireMock.containing(textToWikiSearchCase4TinkoffBank)
+                )
+            )
         }
-
     }
 
     // Case 4
@@ -192,14 +190,11 @@ class WireMockWikiTest {
     fun checkNoResultMessageDisplay() {
         val text = "Неудачные песни Пневмослона"
         stubFor(
-            get(WireMock.urlPathMatching("/api.php"))
-                .withQueryParam("action", WireMock.equalTo("query"))
-                .withQueryParam("format", WireMock.equalTo("json"))
-                .withQueryParam("list", WireMock.equalTo("search"))
-                .withQueryParam("srsearch", WireMock.containing(text))
-                .willReturn(
-                    ok(fileToString("mock/wiki_no_results.json"))
-                )
+            get(urlPathMatching("/api.php")).withQueryParam(
+                "srsearch", WireMock.containing(text)
+            ).willReturn(
+                ok(fileToString("mock/wiki_no_results.json"))
+            )
         )
         with(StartPage()) {
             clickFirstButton()
@@ -207,7 +202,11 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(textToWikiSearchCase3Slon)
             clickWikiSearchButton()
-            Thread.sleep(4000)
+            verify(
+                getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
+                    "srsearch", WireMock.containing(textToWikiSearchCase3Slon)
+                )
+            )
         }
     }
 
@@ -215,14 +214,17 @@ class WireMockWikiTest {
     @Test
     fun checkWikiResponseError401() {
         stubFor(
-            get(WireMock.urlPathMatching("/api/"))
-                .willReturn(
-                    aResponse()
-                        .withStatus(401)
-                )
+            get(urlPathMatching("/api/")).willReturn(
+                aResponse().withStatus(401)
+            )
         )
+
         with(StartPage()) {
             clickShowPersonButton()
+            val lastServerEvent = WireMock.getAllServeEvents().lastOrNull()
+            assertNotNull(lastServerEvent)
+            val status = lastServerEvent?.responseDefinition?.status
+            assertEquals(401, status)
         }
     }
 
@@ -230,29 +232,33 @@ class WireMockWikiTest {
     @Test
     fun checkWikiResponseError400() {
         stubFor(
-            get(WireMock.urlPathMatching("/api/"))
-                .willReturn(
-                    aResponse()
-                        .withStatus(400)
-                )
+            get(urlPathMatching("/api/")).willReturn(
+                aResponse().withStatus(400)
+            )
         )
         with(StartPage()) {
             clickShowPersonButton()
         }
+        val lastServerEvent = WireMock.getAllServeEvents().lastOrNull()
+        assertNotNull(lastServerEvent)
+        val status = lastServerEvent?.responseDefinition?.status
+        assertEquals(400, status)
     }
 
     // Case 5 - 3
     @Test
     fun checkWikiResponseError500() {
         stubFor(
-            get(WireMock.urlPathMatching("/api/"))
-                .willReturn(
-                    aResponse()
-                        .withStatus(500)
-                )
+            get(urlPathMatching("/api/")).willReturn(
+                aResponse().withStatus(500)
+            )
         )
         with(StartPage()) {
             clickShowPersonButton()
+            val lastServerEvent = WireMock.getAllServeEvents().lastOrNull()
+            assertNotNull(lastServerEvent)
+            val status = lastServerEvent?.responseDefinition?.status
+            assertEquals(500, status)
         }
     }
 }
