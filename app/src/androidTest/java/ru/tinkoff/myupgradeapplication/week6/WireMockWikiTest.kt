@@ -97,6 +97,7 @@ class WireMockWikiTest {
     @Test
     fun checkWikiContentDisplay() {
         val textRequest = "Гуляй шальная императрица"
+        val textToWikiSearchCaseImperatrica = "В объятьях юных кавалеров забывает обо всем"
         stubFor(
             get(urlPathMatching("/api.php")).withQueryParam(
                 "srsearch", WireMock.containing(textRequest)
@@ -123,6 +124,8 @@ class WireMockWikiTest {
     @Test
     fun checkWikiContentSwitch() {
         val text = "Серега опытный мужик, он мне дает советов много"
+        val textToWikiSearchCaseSeregaFirstAnswer = "Как правильно точить ножи"
+        val textToWikiSearchCaseSeregaNextAnswer = "Как при походке ставить ноги"
         stubFor(
             get(urlPathMatching("/api.php")).inScenario("Serega")
                 .whenScenarioStateIs(Scenario.STARTED).willSetStateTo("Step 1 - Sapogi")
@@ -192,6 +195,7 @@ class WireMockWikiTest {
     @Test
     fun checkNoResultMessageDisplay() {
         val text = "Неудачные песни Пневмослона"
+        val textToWikiSearchCaseSlon = ""
         stubFor(
             get(urlPathMatching("/api.php")).withQueryParam(
                 "srsearch", WireMock.containing(text)
