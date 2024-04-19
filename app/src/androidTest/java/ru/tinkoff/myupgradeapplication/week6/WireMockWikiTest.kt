@@ -22,6 +22,7 @@ import ru.tinkoff.myupgradeapplication.week6.rules.LocalhostPreferenceRule
 import ru.tinkoff.myupgradeapplication.week6.screens.StartPage
 import ru.tinkoff.myupgradeapplication.week6.screens.WikiPage
 import ru.tinkoff.myupgradeapplication.week6.utils.fileToString
+import kotlin.concurrent.thread
 
 class WireMockWikiTest {
     @get: Rule
@@ -115,6 +116,7 @@ class WireMockWikiTest {
                     "srsearch", WireMock.containing(textRequest)
                 )
             )
+            checkWikiResult(textToWikiSearchCaseImperatrica)
         }
     }
 
@@ -146,6 +148,7 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(text)
             clickWikiSearchButton()
+            checkWikiResult(textToWikiSearchCaseSeregaFirstAnswer)
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
                     "srsearch", WireMock.containing(text)
@@ -154,6 +157,7 @@ class WireMockWikiTest {
 
             replaceTextToWikiFiled(text)
             clickWikiSearchButton()
+            checkWikiResult(textToWikiSearchCaseSeregaNextAnswer)
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
                     "srsearch", WireMock.containing(text)
@@ -202,6 +206,7 @@ class WireMockWikiTest {
         with(WikiPage()) {
             replaceTextToWikiFiled(text)
             clickWikiSearchButton()
+            checkWikiResult(textToWikiSearchCaseSlon)
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
                     "srsearch", WireMock.containing(text)
