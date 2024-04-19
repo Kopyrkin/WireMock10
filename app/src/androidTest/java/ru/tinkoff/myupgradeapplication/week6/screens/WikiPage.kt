@@ -36,8 +36,5 @@ class WikiPage {
         onView(editTextWikiFieldMatcher)
            .perform(ViewActions.replaceText(text))
     }
-    fun checkTextToWikiFiled(text: String) {
-        onView(editTextWikiFieldMatcher)
-    }
 }
 
