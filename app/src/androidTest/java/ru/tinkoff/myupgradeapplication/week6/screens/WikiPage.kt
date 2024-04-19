@@ -11,11 +11,6 @@ class WikiPage {
     val buttonPreviousMatcher = withId(R.id.button_second)
     val buttonWikiSearch = withId(R.id.button_wiki_search)
     val editTextWikiFieldMatcher = withId(R.id.et_wiki_request)
-    val textToWikiSearch = "Гуляй шальная императрица"
-    val textToWikiSearchCase2Serega = "Серега опытный мужик, он мне дает советов много"
-    val textToWikiSearchCase3Slon = "Неудачные песни Пневмослона"
-    val textToWikiSearchCase4TinkoffBank = "Tinkoff Bank"
-
     fun clickPreviousButton() {
         onView(buttonPreviousMatcher)
             .perform(click())
@@ -32,9 +27,10 @@ class WikiPage {
         //.perform(ViewActions.replaceText(text))
         // Можно использовать replace в случае если набор тек ста с помощью typeText не срабатывает на некоторых view
     }
+
     fun replaceTextToWikiFiled(text: String) {
         onView(editTextWikiFieldMatcher)
-           .perform(ViewActions.replaceText(text))
+            .perform(ViewActions.replaceText(text))
     }
 }
 

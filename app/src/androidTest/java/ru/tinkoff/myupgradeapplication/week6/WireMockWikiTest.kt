@@ -108,7 +108,7 @@ class WireMockWikiTest {
             clickFirstButton()
         }
         with(WikiPage()) {
-            replaceTextToWikiFiled(textToWikiSearch)
+            replaceTextToWikiFiled(textRequest)
             clickWikiSearchButton()
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
@@ -144,19 +144,19 @@ class WireMockWikiTest {
             clickFirstButton()
         }
         with(WikiPage()) {
-            replaceTextToWikiFiled(textToWikiSearchCase2Serega)
+            replaceTextToWikiFiled(text)
             clickWikiSearchButton()
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
-                    "srsearch", WireMock.containing(textToWikiSearchCase2Serega)
+                    "srsearch", WireMock.containing(text)
                 )
             )
 
-            replaceTextToWikiFiled(textToWikiSearchCase2Serega)
+            replaceTextToWikiFiled(text)
             clickWikiSearchButton()
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
-                    "srsearch", WireMock.containing(textToWikiSearchCase2Serega)
+                    "srsearch", WireMock.containing(text)
                 )
             )
         }
@@ -175,11 +175,11 @@ class WireMockWikiTest {
             clickFirstButton()
         }
         with(WikiPage()) {
-            replaceTextToWikiFiled(textToWikiSearchCase4TinkoffBank)
+            replaceTextToWikiFiled(nameOfBank)
             clickWikiSearchButton()
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
-                    "srsearch", WireMock.containing(textToWikiSearchCase4TinkoffBank)
+                    "srsearch", WireMock.containing(nameOfBank)
                 )
             )
         }
@@ -200,11 +200,11 @@ class WireMockWikiTest {
             clickFirstButton()
         }
         with(WikiPage()) {
-            replaceTextToWikiFiled(textToWikiSearchCase3Slon)
+            replaceTextToWikiFiled(text)
             clickWikiSearchButton()
             verify(
                 getRequestedFor(urlPathMatching("/api.php")).withQueryParam(
-                    "srsearch", WireMock.containing(textToWikiSearchCase3Slon)
+                    "srsearch", WireMock.containing(text)
                 )
             )
         }
