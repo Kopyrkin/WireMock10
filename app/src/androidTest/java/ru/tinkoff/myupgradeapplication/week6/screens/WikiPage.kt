@@ -17,7 +17,7 @@ class WikiPage {
     val textToWikiSearchCaseSeregaFirstAnswer = "Как правильно точить ножи"
     val textToWikiSearchCaseSeregaNextAnswer = "Как при походке ставить ноги"
     val textToWikiSearchCaseSlon = ""
-    val wikiResult = withId(R.id.tw_wiki_result)
+    val textOnWikiResult = withId(R.id.tw_wiki_result)
     fun clickPreviousButton() {
         onView(buttonPreviousMatcher)
             .perform(click())
@@ -39,7 +39,7 @@ class WikiPage {
            .perform(ViewActions.replaceText(text))
     }
     fun checkWikiResult(text: String) {
-        onView(wikiResult)
+        onView(textOnWikiResult)
            .check(ViewAssertions.matches(ViewMatchers.withText(text)))
     }
 }
