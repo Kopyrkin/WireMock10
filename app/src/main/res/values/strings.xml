@@ -9,26 +9,30 @@
     <string name="previous">Previous</string>
 
     <string name="login_hint">Login</string>
+    <string name="wiki_hint">Enter your wiki request</string>
     <string name="password_hint">Password</string>
     <string name="submitButton">Submit</string>
+    <string name="wikiButton">Search this request in wiki!</string>
 
-    <string name="first_text">Exorcizo te, immundissime spiritus, omnis incursio adversarii, omne phantasma, omnis legio, in nomine Domini nostri Jesu Christi eradicare, et effugare ab hoc plasmate Dei. Ipse tibi imperat, qui te de supernis caelorum in inferiora terrae demergi praecepit. Ipse tibi imperat, qui mari, ventis, et tempestatibus impersvit. Audi ergo, et time, satana, inimice fidei, hostis generis humani, mortis adductor, vitae raptor, justitiae declinator, malorum radix, fomes vitiorum, seductor hominum, proditor gentium, incitator invidiae, origo avaritiae, causa discordiae, excitator dolorum: quid stas, et resistis, cum scias. Christum Dominum vias tuas perdere? Illum metue, qui in Isaac immolatus est, in joseph venumdatus, in sgno occisus, in homine cruci- fixus, deinde inferni triumphator fuit. Sequentes cruces fiant in fronte obsessi. Recede ergo in nomine Patris et Filii, et Spiritus Sancti: da locum Spiritui Sancto, per hoc signum sanctae Cruci Jesu Christi Domini nostri: Qui cum Patre et eodem Spiritu Sancto vivit et regnat Deus, Per omnia saecula saeculorum. Et cum spiritu tuo. Amen.</string>
+    <string name="first_text">
+        Exorcizo te, immundissime spiritus, omnis incursio adversarii, omne phantasma, omnis legio,
+        in nomine Domini nostri Jesu Christi eradicare, et effugare ab hoc plasmate Dei.
+        Ipse tibi imperat, qui te de supernis caelorum in inferiora terrae demergi praecepit.
+        Ipse tibi imperat, qui mari, ventis, et tempestatibus impersvit.
+        Recede ergo in nomine Patris et Filii, et Spiritus Sancti:
+        da locum Spiritui Sancto, per hoc signum sanctae Cruci Jesu Christi Domini nostri:
+        Qui cum Patre et eodem Spiritu Sancto vivit et regnat Deus, Per omnia saecula saeculorum.
+        Et cum spiritu tuo. Amen.</string>
 
 
     <string name="second_text">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Curabitur et eros porttitor, ultricies urna vitae,
         molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
         bibendum, vel congue leo egestas.\n\n
 
     </string>
-    <string name="show_dialog">Show Dialog</string>
+    <string name="show_button">Show Person</string>
+    <string name="no_result">No results(</string>
 </resources>

@@ -27,6 +27,7 @@
                 android:id="@+id/edittext_login"
                 android:layout_width="wrap_content"
                 android:layout_height= "match_parent"
+                android:visibility="gone"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
                 android:hint="@string/login_hint" />
@@ -37,16 +38,41 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:visibility="gone"
                 android:hint="@string/password_hint" />
 
             <Button
                 android:id="@+id/button_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:gravity="center"
                 android:text="@string/submitButton"
                 />
 
+            <EditText
+                android:id="@+id/et_wiki_request"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:hint="@string/wiki_hint" />
+
+
+            <Button
+                android:id="@+id/button_wiki_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/wikiButton"
+                />
+
+            <TextView
+                android:id="@+id/tw_wiki_result"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:gravity="center"/>
 
         </LinearLayout>
         <Button
@@ -58,6 +84,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
 
 
 
